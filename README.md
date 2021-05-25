@@ -16,7 +16,8 @@ run
 
 ## 2. how to run for developper
 1. Clone this repository
-2. Run "electron ." at the top of directory.
+2. Run "npm install" at the top of directory. Then you will get modules of NodeJS in node_modules folder. 
+3. Run "electron ." at the top of directory.
 
 ## 3. how to make installer
 1. Run "node js/buildwin.js
