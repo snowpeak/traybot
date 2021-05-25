@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>traybot</title>
+
+  <script src="js/vue.js"></script>
+
+  <script src="js/accountList.js"></script>
+  <link rel="stylesheet" href="css/accountList.css" />
+</head>
+<body>
+  <div id="toolbar">
+    <div id="ctrl">
+      <div><input id="ctrl-question"></div>
+      <div><img id="ctrl-search" src="image/search.png" onClick="sendSearch()"/></div>
+    </div>
+  </div>
+  </div>
+    <div id="addDiv"><img id="ctrl-add" src="image/add.png" onClick="editAccount(null)"/></div>
+  <div>
+  
+  <div id="accountList">
+    <div v-if="accounts.length == 0">{{msg.hit_none}}</div>
+    <table v-if="accounts.length > 0">
+      <tr>
+        <th>{{msg.no}}</th>
+        <th>{{msg.title}}</th>
+        <th>{{msg.url}}</th>
+        <th>{{msg.account}}</th>
+        <th>{{msg.password}}</th>
+        <th>{{msg.note}}</th>
+      </tr>
+      <tr v-for="(account, index) in accounts">
+        <td>{{index+1}}</td>
+        <td><img class="editIcon" src="image/pencil.png" @click="editAccount(account.id)"/>{{account.title}}</td>
+        <td>{{account.url}}</td>
+        <td>{{account.account}}</td>
+        <td><div v-if="account.password != ''">****</div></td>
+        <td><div class="multiline">{{account.note}}</div></td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    const accountListVue = new Vue({
+      el : '#accountList',
+        data: {
+          msg: {},
+          accounts : [], // {title, url, account, password, note} の配列
+        },
+        methods: {
+          setMsg: function (x_msg) {
+            this.msg = x_msg
+          },
+          setList: function (x_accounts) {
+            this.accounts = x_accounts
+          },
+          editAccount: function (x_id) {
+            editAccount(x_id);
+          }
+        }
+      })
+  </script>
+</body> 
+</html>

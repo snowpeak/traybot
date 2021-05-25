@@ -1,0 +1,133 @@
+body{
+  font-family: sans-serif;
+}
+.multiline{
+  font-family: sans-serif;
+  margin: 0;
+  white-space: pre;
+  /* preには効かない
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  */
+  overflow-y: hidden;
+  height: 3.8em;
+  max-width: 20em;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+table{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table th:first-child{
+  border-radius: 5px 0 0 0;
+}
+table th:last-child{
+  border-radius: 0 5px 0 0;
+  border-right: 1px solid #3c6690;
+}
+table th{
+  text-align: center;
+  color:white;
+  background: linear-gradient(#829ebc,#225588);
+  border-left: 1px solid #3c6690;
+  border-top: 1px solid #3c6690;
+  border-bottom: 1px solid #3c6690;
+  box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
+  /*width: 25%;*/
+  padding: 10px 5px;
+  white-space:nowrap;
+  word-wrap:normal;
+  word-break:keep-all;
+}
+table td{
+  text-align: left;
+  vertical-align: middle;
+  border-left: 1px solid #a8b7c5;
+  border-bottom: 1px solid #a8b7c5;
+  border-top:none;
+  box-shadow: 0px -3px 5px 1px #eee inset;
+  /*width: 25%;*/
+  padding: 3px 5px;
+  white-space:nowrap;
+  word-wrap:normal;
+  word-break:keep-all;
+
+  max-width: 20em;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+table td img{
+  vertical-align: bottom;
+}
+table td img:hover{
+  cursor: pointer;
+}
+table tr:nth-child(odd){
+  background-color: rgb(240, 240, 240);
+}
+table td:last-child{
+  border-right: 1px solid #a8b7c5;  
+}
+table tr:last-child td:first-child {
+  border-radius: 0 0 0 5px;
+}
+table tr:last-child td:last-child {
+  border-radius: 0 0 5px 0;
+}
+
+#toolbar{
+  float: left;
+}
+#ctrl{
+  height: 35px;
+  /* 
+  margin: 0 auto 0 10px; 
+  z-index:9999;
+  position: fixed;
+  */
+  bottom: 2px;
+  /*float: left;*/
+  vertical-align: top;
+  display: table;
+}
+
+#ctrl div{
+  display: table-cell;
+  vertical-align: top;
+}
+#ctrl-question{
+  border: 0.5px solid black;
+  border-radius: 10px;
+  width: 200px; /*calc(100% - 30px);*/
+  padding: 1px 5px 1px 5px;
+  height: 1.5rem;
+}
+#ctrl-search{
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
+  background-color: white;
+  border: 0px;
+  margin-left: 5px;
+  /*margin-right: 10px;*/
+}
+#ctrl-search:hover{
+  background-color: gold;
+}
+#ctrl-add{
+  margin-left : auto;
+  margin-right : 10px;
+}
+#ctrl-add:hover{
+  cursor: pointer;
+}
+#addDiv{
+  text-align:right;
+  margin-left:auto;
+  margin-right: 10px;
+}

@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>traybot</title>
+
+  <script src="js/vue.js"></script>
+
+  <script src="js/editAccount.js"></script>
+  <script src="js/makePasswd.js"></script>
+  <link rel="stylesheet" href="css/editAccount.css" />
+</head>
+<body>
+  <div id="account">
+    <div v-if="account.id != ''" class="toolbar">
+      <div class="leftDiv">{{msg.edit_account}}</div>
+      <div class="delDiv"><img id="ctrl-add" src="image/delete.png" @click="delAccount(account.id)"/></div>
+    </div>
+    <div v-if="account.id == ''" class="toolbar">{{msg.add_account}}</div>
+    <div v-if="errMsg != ''" class="err">{{errMsg}}</div>
+    <table>
+      <tr>
+        <th>{{msg.title}}</th>
+        <td><input type="text" v-model="account.title"></input></td>
+      </tr>
+      <tr>
+        <th>{{msg.url}}</th>
+        <td><input type="text" v-model="account.url"></input></td>
+      </tr>
+      <tr>
+        <th>{{msg.account}}</th>
+        <td><input type="text" v-model="account.account"></input></td>
+      </tr>
+      <tr>
+        <th>{{msg.password}}</th>
+        <td><input type="text" v-model="account.password" class="editPassword"></input><img class="clickIcon" src="image/new_password.png" @click="newPassword()"/></td>
+      </tr>
+      <tr>
+        <th>{{msg.note}}</th>
+        <td><textarea rows="15" cols="60" v-model="account.note"></textarea></td>
+      </tr>
+    </table>
+    <div class="toolbar">
+      <div id="ctrl">
+        <div><img id="save" class="clickIcon" src="image/save.png" @click="saveAccount()"/></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const accountVue = new Vue({
+      el : '#account',
+        data: {
+          msg: {},
+          errMsg: "",
+          account : {}, // {id, title, url, account, password, note} 
+        },
+        methods: {
+          setMsg: function (x_msg) {
+            this.msg = x_msg
+          },
+          setErrMsg: function (x_err) {
+            this.errMsg = x_err;
+          },
+          setAccount: function (x_account) {
+            this.account = x_account
+          },
+          saveAccount: function () {
+            saveAccount(this.account);
+          },
+          delAccount: function () {
+            delAccount(this.account.id);
+          },
+          newPassword: function () {
+            this.account.password = makePasswd(16);
+          }
+
+        }
+      })
+  </script>
+</body> 
+</html>

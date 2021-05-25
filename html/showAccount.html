@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>traybot</title>
+
+  <script src="js/vue.js"></script>
+
+  <script src="js/showAccount.js"></script>
+  <link rel="stylesheet" href="css/showAccount.css" />
+</head>
+<body>
+  <div id="account">
+    <div v-if="account.id == ''" class="toolbar">
+      <div class="leftDiv">{{msg.show_account}}</div>
+    </div>
+    <div v-if="account.id != ''">
+      <div class="toolbar">
+        <div class="leftDiv">{{msg.show_account}}</div>
+        <div class="editDiv"><img id="ctrl-edit" src="image/pencil.png" @click="editAccount(account.id)"/></div>
+      </div>
+  
+    <table>
+      <tr>
+        <th>{{msg.title}}</th>
+        <td>{{account.title}}</input></td>
+      </tr>
+      <tr>
+        <th>{{msg.url}}</th>
+        <td>{{account.url}}</input></td>
+      </tr>
+      <tr>
+        <th>{{msg.account}}</th>
+        <td>{{account.account}}</input></td>
+      </tr>
+      <tr>
+        <th>{{msg.password}}</th>
+        <td>{{account.password}}</input></td>
+      </tr>
+      <tr>
+        <th>{{msg.note}}</th>
+        <td><pre>{{account.note}}</pre></td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <script>
+    const accountVue = new Vue({
+      el : '#account',
+        data: {
+          msg: {},
+          account : {}, // {id, title, url, account, password, note} 
+        },
+        methods: {
+          setMsg: function (x_msg) {
+            this.msg = x_msg
+          },
+          setAccount: function (x_account) {
+            this.account = x_account
+          },
+          editAccount: function (x_id) {
+            window.nodeBridge.send_editAccount(x_id);
+            window.close();
+          }
+        }
+      })
+  </script>
+</body> 
+</html>
