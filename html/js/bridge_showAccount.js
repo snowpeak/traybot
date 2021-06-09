@@ -1,8 +1,9 @@
 const { ipcRenderer, contextBridge } = require('electron')
-const msgDic = require('../../js/messages').getMsgDic('ja'); //連想配列です。
+msgDic = require('../../js/messages').getMsgDic('ja'); //連想配列です。
 
 contextBridge.exposeInMainWorld('nodeBridge',{
-    getMsgDic: () =>{
+    getMsgDic: (x_lang) => {
+        msgDic = require('../../js/messages').getMsgDic(x_lang);
         return msgDic;
     },
     getMsg: (x_code, x_replace) =>{

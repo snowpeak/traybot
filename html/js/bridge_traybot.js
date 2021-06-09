@@ -1,7 +1,11 @@
 const { ipcRenderer, contextBridge } = require('electron')
-const msgDic = require('../../js/messages').getMsgDic('ja');
+msgDic = require('../../js/messages').getMsgDic('ja');
 
 contextBridge.exposeInMainWorld('mybridge',{
+    setMsgDic: (x_lang) => {
+        msgDic = require('../../js/messages').getMsgDic(x_lang);
+        return msgDic;
+    },
     getMsg: (x_code, x_replace) =>{
         let p_msg = msgDic[x_code];
         if(x_replace != null){
