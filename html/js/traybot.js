@@ -12,7 +12,8 @@ function traybotInit(){
   }, false);
 
   // 検索結果の受け取りメソッドを登録
-  window.mybridge.on_resSearch(toHtml); 
+  window.mybridge.on_resSearch(toHtml);
+  window.mybridge.setMsgDic(new URLSearchParams(location.search).get('lang'));
 
   // 最初の案内文
   traybotInfo(window.mybridge.getMsg("begin"));

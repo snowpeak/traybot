@@ -61,6 +61,24 @@ const TBL_DEF_ATTACHFILE = [
 "CREATE INDEX idx_$tblname_konw_how_id ON $tblname(know_how_id)"
 ]
 exports.TBL_DEF_ATTACHFILE = TBL_DEF_ATTACHFILE;
+/**
+ * CONFIGURATION table's columns.
+ * @author LatteBeo
+ */
+const TBL_CONFIGURATION_COLS = ["parameter", "value"];
+exports.TBL_CONFIGURATION_COLS = TBL_CONFIGURATION_COLS;
+/**
+ * Definition of CONFIGURATION table.
+ * @author LatteBeo
+ */
+const TBL_DEF_CONFIGURATION = [
+    "DROP TABLE IF EXISTS $tblname",
+    "CREATE TABLE IF NOT EXISTS $tblname("
+    + "parameter text primary key,"
+    + "value text"
+    + ")",
+  "CREATE INDEX idx_$tblname_parameter ON $tblname(parameter)"
+]
 
 /**
  * データベースとのコネクションを返します  
@@ -91,15 +109,17 @@ exports.connectDB = function(x_storage){
                 return;
             }
             if(x_row.num == 0){
-                let p_dbDefs = [TBL_DEF_TABLES, TBL_DEF_ACCOUNT, TBL_DEF_KNOW_HOW, TBL_DEF_ATTACHFILE];
-                let p_tblnames = ["tables", "account", "know_how", "attachfile"];
+                let p_dbDefs = [TBL_DEF_TABLES, TBL_DEF_ACCOUNT, TBL_DEF_KNOW_HOW, TBL_DEF_ATTACHFILE, TBL_DEF_CONFIGURATION];
+                let p_tblnames = ["tables", "account", "know_how", "attachfile", "configuration"];
                 return initTable(p_db, p_dbDefs, p_tblnames, 0, (x_err)=>{
                     if(x_err != null){
                         f_reject( x_err ); // 終了
                         return;
                     }
                     s_logger.info("initTable succeeded!");
-                    // p_db を返す
+                    //Insert initial data.
+                    this.insert( p_db, "configuration", TBL_CONFIGURATION_COLS, {"parameter":"lang", "value":"ja"}, function(){} );
+                    // p_db を返す                    
                     f_resolve( p_db );
             })
             }else{
@@ -355,4 +375,26 @@ exports.getAccount = function(x_db, x_id, f_func){
             f_func(x_rows[0]);
         })
 }
-
+/**
+ * Get all configuration parameters.
+ * @param x_db Database connection object
+ * @param f_func Callback function.
+ * @author LatteBeo
+ */
+exports.getParams = function(x_db, f_func) {
+    let p_sql = "SELECT * FROM configuration;";
+    x_db.all(p_sql, (x_err, x_rows)=>{
+        f_func(x_rows);
+    })
+}
+/**
+ * Update parameter.
+ * @param {*} x_db Database connection object. 
+ * @param {*} x_parameter Parameter name.
+ * @param {*} x_value parameter value.
+ * @author LatteBeo
+ */
+exports.saveParam = function(x_db, x_parameter, x_value) {
+    var values = {"parameter": x_parameter, "value":x_value};
+    this.update(x_db, "configuration", TBL_CONFIGURATION_COLS, values, function(){});
+}

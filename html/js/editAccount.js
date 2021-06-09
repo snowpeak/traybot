@@ -1,6 +1,6 @@
 ﻿function thisInit(){
   // メッセージリソース
-  accountVue.setMsg(window.nodeBridge.getMsgDic());
+  accountVue.setMsg(window.nodeBridge.getMsgDic(new URLSearchParams(location.search).get('lang')));
 
   // 結果の受け取りメソッドを登録
   window.nodeBridge.on_setAccount(setAccount);

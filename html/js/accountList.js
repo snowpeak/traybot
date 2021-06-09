@@ -10,7 +10,7 @@ function thisInit(){
   }, false);
 
   // メッセージリソース
-  accountListVue.setMsg(window.nodeBridge.getMsgDic());
+  accountListVue.setMsg(window.nodeBridge.getMsgDic(new URLSearchParams(location.search).get('lang')));
 
   // 検索結果の受け取りメソッドを登録
   window.nodeBridge.on_resSearch(setList);
