@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>traybot</title>
+  <script src="js/vue.js"></script>
+  <script src="js/configuration.js"></script>
+</head>
+
+<body>
+  <div id="configuration">
+    <form>
+      <span>{{msg.lang}}</span>
+      <input type="text" id="lang" v-model="lang" />
+    </form>
+    <button @click="save()">{{msg.save}}</button>
+  </div>
+
+  <script>
+    const configurationVue = new Vue({
+      el: '#configuration',
+      data: {
+        msg: {},
+        lang: '',
+      },
+      methods: {
+        setMsg: function (x_msg) {
+          this.msg = x_msg
+        },
+        save: function () {
+          save(this.lang);
+        }
+      }
+    })
+  </script>
+</body>
+</html>
